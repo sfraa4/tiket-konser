@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pemesanan Tiket Konser</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>🎶 RAIKAN BEATS 2 HOLIDAY 🎶</h1>
+    <p><br>TILLY BIRD - DEXX - LYKN - BUS - DIAMOND - JOONG ARCHEN - POND NARAVIT - SCRUBB - MILLI - PROXIE
+         - CHINZILA - JEFF SATUR - TRPPLE.N - GEMINI - TOBII - TIMETHAI - FLI:P - JASPER - ATLAS - 
+        PHUWIN - DAOU - 4EVE - GELBOYS - WESLEY - PERMPOON - JAIDEE - NATACHAI - DOMIA - GUINZLY</p>
+  </header>
+
+  <section class="status-tiket">
+    <div class="status-item">
+      🎫 VIP Tersedia: <span id="vipTersedia">10</span>
+    </div>
+    <div class="status-item">
+      🎫 Regular Tersedia: <span id="regTersedia">20</span>
+    </div>
+    <div class="status-item">
+      🟢 VIP Terjual: <span id="vipTerjual">0</span>
+    </div>
+    <div class="status-item">
+      🟢 Regular Terjual: <span id="regTerjual">0</span>
+    </div>
+  </section>
+
+  <main class="main-container">
+    <section class="form-container">
+      <form id="ticketForm">
+        <p id="editInfo" class="hidden edit-info">
+          ✏️ Sedang mengedit data. Klik "Simpan Perubahan" setelah revisi.
+        </p>
+
+        <h2>🧍 Data Diri</h2>
+        <input type="text" id="nama" placeholder="Nama Lengkap" required />
+        <input type="email" id="email" placeholder="Email Aktif" required />
+        <input type="tel" id="hp" placeholder="Nomor HP" required />
+
+        <h2>🎟️ Pemesanan Tiket</h2>
+        <select id="jenisTiket">
+          <option value="VIP">VIP - Rp 1.000.000</option>
+          <option value="Regular">Regular - Rp 500.000</option>
+        </select>
+        <input
+          type="number"
+          id="jumlah"
+          placeholder="Jumlah Tiket"
+          min="1"
+          required
+        />
+
+        <select id="pembayaran">
+          <option value="Transfer Bank">Transfer Bank</option>
+          <option value="E-Wallet">E-Wallet</option>
+        </select>
+
+        <button type="submit" class="submit-btn">Beli Tiket</button>
+      </form>
+    </section>
+
+    <section class="orders">
+      <h2>📝 Daftar Pemesanan</h2>
+      <ul id="daftarBeli"></ul>
+    </section>
+  </main>
+
+  <section id="buktiPembayaran" class="bukti hidden">
+    <h2>✅ Bukti Pembayaran</h2>
+    <div id="buktiIsi" class="receipt-box"></div>
+  </section>
+
+  <footer>
+    <p>© RAIKAN BEATS 2 HOLIDAY. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
