@@ -46,6 +46,16 @@
           <option value="VIP">VIP - Rp 1.000.000</option>
           <option value="Regular">Regular - Rp 500.000</option>
         </select>
+        
+        <div class="date-selection">
+          <label for="tanggalKonser">📅 Pilih Tanggal Konser:</label>
+          <select id="tanggalKonser">
+            <option value="2023-12-15">Jumat, 15 Desember 2023</option>
+            <option value="2023-12-16">Sabtu, 16 Desember 2023</option>
+            <option value="2023-12-17">Minggu, 17 Desember 2023</option>
+          </select>
+        </div>
+        
         <input
           type="number"
           id="jumlah"
@@ -54,12 +64,18 @@
           required
         />
 
+        <div class="price-display">
+          <p>Harga per tiket: <span id="hargaPerTiket">Rp 1.000.000</span></p>
+          <p>Total pembayaran: <span id="totalPembayaran">Rp 0</span></p>
+        </div>
+
         <select id="pembayaran">
           <option value="Transfer Bank">Transfer Bank</option>
           <option value="E-Wallet">E-Wallet</option>
+          <option value="Kartu Kredit">Kartu Kredit</option>
         </select>
 
-        <button type="submit" class="submit-btn">Beli Tiket</button>
+        <button type="submit" class="submit-btn">Lanjut ke Pembayaran</button>
       </form>
     </section>
 
@@ -69,9 +85,22 @@
     </section>
   </main>
 
+  <!-- Modal Konfirmasi Pembelian -->
+  <div id="modalKonfirmasi" class="modal hidden">
+    <div class="modal-content">
+      <h2>Konfirmasi Pembelian</h2>
+      <div id="konfirmasiData"></div>
+      <div class="modal-buttons">
+        <button id="konfirmasiBtn">Konfirmasi Pembelian</button>
+        <button id="batalBtn">Batalkan</button>
+      </div>
+    </div>
+  </div>
+
   <section id="buktiPembayaran" class="bukti hidden">
     <h2>✅ Bukti Pembayaran</h2>
     <div id="buktiIsi" class="receipt-box"></div>
+    <button id="kembaliBtn" class="submit-btn">Kembali ke Form</button>
   </section>
 
   <footer>
