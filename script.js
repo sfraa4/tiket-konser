@@ -1,8 +1,6 @@
-// Data state
 let pesananList = [];
 let editIndex = -1;
 
-// DOM Elements
 const ticketForm = document.getElementById('ticketForm');
 const jenisTiketSelect = document.getElementById('jenisTiket');
 const jumlahInput = document.getElementById('jumlah');
@@ -19,21 +17,19 @@ const buktiIsi = document.getElementById('buktiIsi');
 const kembaliBtn = document.getElementById('kembaliBtn');
 const editInfo = document.getElementById('editInfo');
 
-// Initialize
 document.addEventListener('DOMContentLoaded', function() {
   updateHargaDisplay();
   loadPesananFromStorage();
   tampilkanDaftarPemesanan();
 });
 
-// Event Listeners
 jenisTiketSelect.addEventListener('change', updateHargaDisplay);
 jumlahInput.addEventListener('input', updateHargaDisplay);
 tanggalKonserSelect.addEventListener('change', updateHargaDisplay);
 
 ticketForm.addEventListener('submit', function(e) {
   e.preventDefault();
-  
+
   const nama = document.getElementById('nama').value;
   const email = document.getElementById('email').value;
   const hp = document.getElementById('hp').value;
@@ -47,17 +43,15 @@ ticketForm.addEventListener('submit', function(e) {
     month: 'long',
     day: 'numeric'
   });
-  
+
   const harga = jenisTiket === 'VIP' ? 1000000 : 500000;
   const total = harga * jumlah;
-  
-  // Validasi ketersediaan tiket
+
   if (!validateTicketAvailability(jenisTiket, jumlah)) {
     alert(`Maaf, tiket ${jenisTiket} tidak mencukupi. Silakan kurangi jumlah atau pilih jenis lain.`);
     return;
   }
-  
-  // Tampilkan modal konfirmasi
+
   showKonfirmasiModal({
     nama, email, hp, jenisTiket, jumlah, pembayaran, 
     tanggalKonser, tanggalPemesanan, total
@@ -79,7 +73,6 @@ kembaliBtn.addEventListener('click', function() {
   updateHargaDisplay();
 });
 
-// Functions
 function updateHargaDisplay() {
   const jenisTiket = jenisTiketSelect.value;
   const jumlah = parseInt(jumlahInput.value) || 0;
@@ -93,7 +86,7 @@ function validateTicketAvailability(jenisTiket, jumlah) {
   const tersediaElement = jenisTiket === 'VIP' ? 
     document.getElementById('vipTersedia') : 
     document.getElementById('regTersedia');
-  
+
   const tersedia = parseInt(tersediaElement.textContent);
   return jumlah <= tersedia;
 }
@@ -147,20 +140,15 @@ function processPembelian() {
   };
   
   if (editIndex === -1) {
-    // Pembelian baru
     pesananList.push(data);
     updateTicketAvailability(jenisTiket, jumlah, 'reduce');
   } else {
-    // Edit pesanan
     const oldJenisTiket = pesananList[editIndex].jenisTiket;
     const oldJumlah = pesananList[editIndex].jumlah;
-    
-    // Kembalikan tiket sebelumnya
+
     updateTicketAvailability(oldJenisTiket, oldJumlah, 'increase');
-    
-    // Kurangi tiket baru
     updateTicketAvailability(jenisTiket, jumlah, 'reduce');
-    
+
     pesananList[editIndex] = data;
     editIndex = -1;
     editInfo.classList.add('hidden');
@@ -169,6 +157,7 @@ function processPembelian() {
   savePesananToStorage();
   tampilkanDaftarPemesanan();
   showBukti(data);
+
   ticketForm.reset();
   updateHargaDisplay();
 }
@@ -226,8 +215,7 @@ function editPesanan(index) {
   jenisTiketSelect.value = pesanan.jenisTiket;
   jumlahInput.value = pesanan.jumlah;
   document.getElementById('pembayaran').value = pesanan.pembayaran;
-  
-  // Set tanggal konser
+
   const optionToSelect = Array.from(tanggalKonserSelect.options).find(
     option => option.value === pesanan.tanggalKonser
   );
@@ -238,8 +226,6 @@ function editPesanan(index) {
   updateHargaDisplay();
   editIndex = index;
   editInfo.classList.remove('hidden');
-  
-  // Scroll ke form
   document.querySelector('.form-container').scrollIntoView({ 
     behavior: 'smooth' 
   });
@@ -264,8 +250,6 @@ function loadPesananFromStorage() {
   const saved = localStorage.getItem('pesananList');
   if (saved) {
     pesananList = JSON.parse(saved);
-    
-    // Update jumlah tiket tersedia dan terjual berdasarkan data yang disimpan
     let vipTerjual = 0;
     let regTerjual = 0;
     
@@ -307,6 +291,4 @@ function showBukti(data) {
     <p style="color:green; font-weight:bold; text-align:center;">✅ Pembayaran Berhasil Dikonfirmasi</p>
   `;
   buktiPembayaran.classList.remove("hidden");
-  
-  // Scroll ke bukti pembayaran
   buktiPembayaran.scrollIntoView({ behavior: 'smooth' });}
